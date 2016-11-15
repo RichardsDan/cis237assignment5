@@ -77,27 +77,26 @@ namespace assignment1
             return new string[] { id, description, pack };
         }
 
-        //Display Import Success
-        public void DisplayImportSuccess()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Wine List Has Been Imported Successfully");
-        }
+        ////Display Import Success
+        //public void DisplayImportSuccess()
+        //{
+        //    Console.WriteLine();
+        //    Console.WriteLine("Wine List Has Been Imported Successfully");
+        //}
 
-        //Display Import Error
-        public void DisplayImportError()
-        {
-            Console.WriteLine();
-            Console.WriteLine("There was an error importing the CSV");
-        }
+        ////Display Import Error
+        //public void DisplayImportError()
+        //{
+        //    Console.WriteLine();
+        //    Console.WriteLine("There was an error importing the CSV");
+        //}
 
         //Display All Items
-        public void DisplayAllItems(string[] allItemsOutput)
+        public void DisplayAllItems(BeverageDRichardsEntities itemList)
         {
-            Console.WriteLine();
-            foreach (string itemOutput in allItemsOutput)
+            foreach (Beverage wine in itemList.Beverages)
             {
-                Console.WriteLine(itemOutput);
+                Console.WriteLine(wine.id + " " + wine.name + " " + wine.pack + " " + wine.price);
             }
         }
 
@@ -148,11 +147,12 @@ namespace assignment1
             Console.WriteLine();
             Console.WriteLine("What would you like to do?");
             Console.WriteLine();
-            Console.WriteLine("1. Load Wine List From CSV");
-            Console.WriteLine("2. Print The Entire List Of Items");
-            Console.WriteLine("3. Search For An Item");
-            Console.WriteLine("4. Add New Item To The List");
-            Console.WriteLine("5. Exit Program");
+            Console.WriteLine("1. Print the Entire List of Items");
+            Console.WriteLine("2. Search for an Item");
+            Console.WriteLine("3. Add New Item to the List");
+            Console.WriteLine("4. Change an Item in the List");
+            Console.WriteLine("5. Remove an Item from the List");
+            Console.WriteLine("6. Exit Program");
         }
 
         //Display the Prompt

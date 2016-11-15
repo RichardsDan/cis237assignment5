@@ -21,20 +21,13 @@ namespace assignment1
     {
         static void Main(string[] args)
         {
-            //Set a constant for the size of the collection
-            const int wineItemCollectionSize = 4000;
-
-            //Set a constant for the path to the CSV File
-            const string pathToCSVFile = "../../../datafiles/winelist.csv";
 
             //Create an instance of the UserInterface class
             UserInterface userInterface = new UserInterface();
 
-            //Create an instance of the WineItemCollection class
-            IWineCollection wineItemCollection = new WineItemCollection(wineItemCollectionSize);
+            BeverageDRichardsEntities beverageDRichardsEntities = new BeverageDRichardsEntities();
 
-            //Create an instance of the CSVProcessor class
-            CSVProcessor csvProcessor = new CSVProcessor();
+            WineItemCollection wineItems = new WineItemCollection(beverageDRichardsEntities);
 
             //Display the Welcome Message to the user
             userInterface.DisplayWelcomeGreeting();
@@ -48,33 +41,12 @@ namespace assignment1
                 switch (choice)
                 {
                     case 1:
-                        //Load the CSV File
-                        bool success = csvProcessor.ImportCSV(wineItemCollection, pathToCSVFile);
-                        if (success)
-                        {
-                            //Display Success Message
-                            userInterface.DisplayImportSuccess();
-                        }
-                        else
-                        {
-                            //Display Fail Message
-                            userInterface.DisplayImportError();
-                        }
+                        //Print Entire List Of Items
+                        userInterface.DisplayAllItems(beverageDRichardsEntities);
                         break;
 
                     case 2:
-                        //Print Entire List Of Items
-                        string[] allItems = wineItemCollection.GetPrintStringsForAllItems();
-                        if (allItems.Length > 0)
-                        {
-                            //Display all of the items
-                            userInterface.DisplayAllItems(allItems);
-                        }
-                        else
-                        {
-                            //Display error message for all items
-                            userInterface.DisplayAllItemsError();
-                        }
+                        
                         break;
 
                     case 3:

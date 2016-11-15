@@ -12,29 +12,25 @@ namespace assignment1
     class WineItemCollection : IWineCollection
     {
         //Private Variables
-        WineItem[] wineItems;
-        int wineItemsLength;
+        BeverageDRichardsEntities wineItems;
 
         //Constuctor. Must pass the size of the collection.
-        public WineItemCollection(int size)
+        public WineItemCollection(BeverageDRichardsEntities wines)
         {
-            wineItems = new WineItem[size];
-            wineItemsLength = 0;
+            wineItems = wines;
         }
 
         //Add a new item to the collection
         public void AddNewItem(string id, string description, string pack)
         {
-            //Add a new WineItem to the collection. Increase the Length variable.
-            wineItems[wineItemsLength] = new WineItem(id, description, pack);
-            wineItemsLength++;
+            //Add a new WineItem to the collection.
+            
+           
         }
         
         //Get The Print String Array For All Items
         public string[] GetPrintStringsForAllItems()
         {
-            //Create and array to hold all of the printed strings
-            string[] allItemStrings = new string[wineItemsLength];
             //set a counter to be used
             int counter = 0;
 
@@ -42,7 +38,7 @@ namespace assignment1
             if (wineItemsLength > 0)
             {
                 //For each item in the collection
-                foreach (WineItem wineItem in wineItems)
+                foreach (Beverage wineItem in wineItems.Beverages)
                 {
                     //if the current item is not null.
                     if (wineItem != null)
