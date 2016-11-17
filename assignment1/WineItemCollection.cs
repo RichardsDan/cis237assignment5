@@ -21,58 +21,60 @@ namespace assignment1
         }
 
         //Add a new item to the collection
-        public void AddNewItem(string id, string description, string pack)
+        public void AddNewItem(string id, string description, string pack, decimal price)
         {
             //Add a new WineItem to the collection.
-            
-           
-        }
-        
-        //Get The Print String Array For All Items
-        public string[] GetPrintStringsForAllItems()
-        {
-            //set a counter to be used
-            int counter = 0;
+            Beverage newWine = new Beverage();
 
-            //If the wineItemsLength is greater than 0, create the array of strings
-            if (wineItemsLength > 0)
-            {
-                //For each item in the collection
-                foreach (Beverage wineItem in wineItems.Beverages)
-                {
-                    //if the current item is not null.
-                    if (wineItem != null)
-                    {
-                        //Add the results of calling ToString on the item to the string array.
-                        allItemStrings[counter] = wineItem.ToString();
-                        counter++;
-                    }
-                }
-            }
-            //Return the array of item strings
-            return allItemStrings;
+            newWine.id = id;
+            newWine.name = description;
+            newWine.pack = pack;
+            newWine.price = price;
+
+            wineItems.Beverages.Add(newWine);
         }
+
+        ////Get The Print String Array For All Items
+        //public string[] GetPrintStringsForAllItems()
+        //{
+        //    //set a counter to be used
+        //    int counter = 0;
+
+        //    //If the wineItemsLength is greater than 0, create the array of strings
+        //    if (wineItemsLength > 0)
+        //    {
+        //        //For each item in the collection
+        //        foreach (Beverage wineItem in wineItems.Beverages)
+        //        {
+        //            //if the current item is not null.
+        //            if (wineItem != null)
+        //            {
+        //                //Add the results of calling ToString on the item to the string array.
+        //                allItemStrings[counter] = wineItem.ToString();
+        //                counter++;
+        //            }
+        //        }
+        //    }
+        //    //Return the array of item strings
+        //    return allItemStrings;
+        //}
 
         //Find an item by it's Id
-        public string FindById(string id)
+
+        public void UpdateItem()
+        {
+
+        }
+
+        public string FindById(string id, BeverageDRichardsEntities beverages)
         {
             //Declare return string for the possible found item
             string returnString = null;
+            Beverage wineToFind = beverages.Beverages.Find(id);
 
-            //For each WineItem in wineItems
-            foreach (WineItem wineItem in wineItems)
-            {
-                //If the wineItem is not null
-                if (wineItem != null)
-                {
-                    //if the wineItem Id is the same as the search id
-                    if (wineItem.Id == id)
-                    {
-                        //Set the return string to the result of the wineItem's ToString method
-                        returnString = wineItem.ToString();
-                    }
-                }
-            }
+            if (wineToFind != null)
+                returnString = wineToFind.id + " " + wineToFind.name + " " + wineToFind.pack + " " + wineToFind.price;
+
             //Return the returnString
             return returnString;
         }

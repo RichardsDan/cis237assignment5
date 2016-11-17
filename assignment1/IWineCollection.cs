@@ -8,10 +8,10 @@ namespace assignment1
 {
     interface IWineCollection
     {
-        void AddNewItem(string id, string description, string pack);
+        void AddNewItem(string id, string description, string pack, decimal price);
 
-        string[] GetPrintStringsForAllItems();
+     //   string[] GetPrintStringsForAllItems();
 
-        string FindById(string id);
+        string FindById(string id, BeverageDRichardsEntities beverages);
     }
 }

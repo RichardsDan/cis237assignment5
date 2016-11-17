@@ -36,7 +36,7 @@ namespace assignment1
             //This is the 'primer' run of displaying and getting.
             int choice = userInterface.DisplayMenuAndGetResponse();
 
-            while (choice != 5)
+            while (choice != 6)
             {
                 switch (choice)
                 {
@@ -44,15 +44,10 @@ namespace assignment1
                         //Print Entire List Of Items
                         userInterface.DisplayAllItems(beverageDRichardsEntities);
                         break;
-
                     case 2:
-                        
-                        break;
-
-                    case 3:
                         //Search For An Item
                         string searchQuery = userInterface.GetSearchQuery();
-                        string itemInformation = wineItemCollection.FindById(searchQuery);
+                        string itemInformation = wineItems.FindById(searchQuery, beverageDRichardsEntities);
                         if (itemInformation != null)
                         {
                             userInterface.DisplayItemFound(itemInformation);
@@ -62,19 +57,25 @@ namespace assignment1
                             userInterface.DisplayItemFoundError();
                         }
                         break;
-
-                    case 4:
+                    case 3:
                         //Add A New Item To The List
                         string[] newItemInformation = userInterface.GetNewItemInformation();
-                        if (wineItemCollection.FindById(newItemInformation[0]) == null)
+                        if (wineItems.FindById(newItemInformation[0], beverageDRichardsEntities) == null)
                         {
-                            wineItemCollection.AddNewItem(newItemInformation[0], newItemInformation[1], newItemInformation[2]);
+                            wineItems.AddNewItem(newItemInformation[0], newItemInformation[1], newItemInformation[2], decimal.Parse(newItemInformation[3]));
+
+                            beverageDRichardsEntities.SaveChanges();
+
                             userInterface.DisplayAddWineItemSuccess();
                         }
                         else
                         {
                             userInterface.DisplayItemAlreadyExistsError();
                         }
+                        break;
+                    case 4:
+                        // Update an Item in the List
+
                         break;
                 }
 

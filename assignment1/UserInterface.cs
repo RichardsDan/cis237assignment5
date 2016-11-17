@@ -11,7 +11,7 @@ namespace assignment1
 {
     class UserInterface
     {
-        const int maxMenuChoice = 5;
+        const int maxMenuChoice = 6;
         //---------------------------------------------------
         //Public Methods
         //---------------------------------------------------
@@ -55,7 +55,7 @@ namespace assignment1
         public string GetSearchQuery()
         {
             Console.WriteLine();
-            Console.WriteLine("What would you like to search for?");
+            Console.WriteLine("Enter the ID of the item you are searching for.");
             Console.Write("> ");
             return Console.ReadLine();
         }
@@ -64,39 +64,86 @@ namespace assignment1
         public string[] GetNewItemInformation()
         {
             Console.WriteLine();
-            Console.WriteLine("What is the new items Id?");
+            
+            return new string[] { GetItemID(), GetItemDescription(), GetItemPack(), GetItemPrice().ToString() };
+        }
+
+        // Get Update information From the User
+        public void UpdateItem()
+        {
+
+        }
+
+        // Gets ID of item
+        public string GetItemID()
+        {
+            Console.WriteLine("What is the items Id?");
             Console.Write("> ");
             string id = Console.ReadLine();
-            Console.WriteLine("What is the new items Description?");
+
+            return id;
+        }
+
+        // Gets description of item
+        public string GetItemDescription()
+        {
+            Console.WriteLine("What is the items Description?");
             Console.Write("> ");
             string description = Console.ReadLine();
+
+            return description;
+        }
+
+        // Gets pack of item
+        public string GetItemPack()
+        {
             Console.WriteLine("What is the new items Pack?");
             Console.Write("> ");
             string pack = Console.ReadLine();
 
-            return new string[] { id, description, pack };
+            return pack;
         }
 
-        ////Display Import Success
-        //public void DisplayImportSuccess()
-        //{
-        //    Console.WriteLine();
-        //    Console.WriteLine("Wine List Has Been Imported Successfully");
-        //}
+        // Gets price of item
+        public decimal GetItemPrice()
+        {
+            decimal price = 0;
+            bool priceBool = false;
+            while (!priceBool)
+            {
+                Console.WriteLine("What is the new items price?");
+                if (decimal.TryParse(Console.ReadLine(), out price))
+                    priceBool = true;
+            }
 
-        ////Display Import Error
-        //public void DisplayImportError()
-        //{
-        //    Console.WriteLine();
-        //    Console.WriteLine("There was an error importing the CSV");
-        //}
+            return price;
+        }
+
+        private Beverage GetItemForUpdate()
+        {
+            Console.WriteLine("Enter ID of item to be updated");
+            this.displayPrompt();
+
+
+        }
+
+        private void DisplayUpdateMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Which field would you like to update?");
+            Console.WriteLine();
+            Console.WriteLine("1. Description");
+            Console.WriteLine("2. Pack");
+            Console.WriteLine("3. Price");
+            Console.WriteLine("4. Finish Update");
+        }
 
         //Display All Items
         public void DisplayAllItems(BeverageDRichardsEntities itemList)
         {
             foreach (Beverage wine in itemList.Beverages)
             {
-                Console.WriteLine(wine.id + " " + wine.name + " " + wine.pack + " " + wine.price);
+                Console.WriteLine(wine.id + " " + wine.name + " " + wine.pack + " " + wine.price.ToString("c"));
             }
         }
 
