@@ -10,8 +10,6 @@ namespace assignment1
     {
         void AddNewItem(string id, string description, string pack, decimal price);
 
-        //   string[] GetPrintStringsForAllItems();
-
         string FindById(string id);
     }
 }

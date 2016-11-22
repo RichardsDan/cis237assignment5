@@ -14,7 +14,7 @@ namespace assignment1
         //Private Variables
         BeverageDRichardsEntities wineItems;
 
-        //Constuctor. Must pass the size of the collection.
+        //Constuctor.
         public WineItemCollection(BeverageDRichardsEntities wines)
         {
             wineItems = wines;
@@ -34,12 +34,13 @@ namespace assignment1
             wineItems.Beverages.Add(newWine);
         }
 
-       
-
+        // Allows user to change information for any item in the database, excluding the id
         public void UpdateItem(UserInterface ui)
         {
+            // Gets item to be updated from user
             Beverage updateWine = ui.GetItemForUpdate(wineItems);
 
+            // Ensures wine actually exists and is in the database
             if (updateWine != null)
             {
                 int choice = ui.DisplayUpdateMenuAndGetResponse();
@@ -48,27 +49,29 @@ namespace assignment1
                 {
                     switch(choice)
                     {
-                        // Change the description/name of the wine
                         case 1:
+                            // Change the description/name of the wine
                             updateWine.name = ui.GetItemDescription();
                             break;
                         case 2:
+                            // Change the pack of the wine
                             updateWine.pack = ui.GetItemPack();
                             break;
                         case 3:
+                            // Change the price of the wine
                             updateWine.price = ui.GetItemPrice();
                             break;
                     }
                     choice = ui.DisplayUpdateMenuAndGetResponse();
                 }
+                // Save changes made to the item and display a messgage saying the item was updated
                 wineItems.SaveChanges();
+                ui.DisplayItemUpdated();
             }
             else
             {
                 ui.DisplayItemFoundError();
             }
-
-            ui.DisplayItemUpdated();
         }
 
         //Find an item by it's Id
@@ -85,14 +88,18 @@ namespace assignment1
             return returnString;
         }
 
+        // Allows user to delete an item from the list
         public void DeleteItem(UserInterface ui)
         {
+            // Gets the wine to be deleted from the user
             Beverage wineToDelete = wineItems.Beverages.Find(ui.GetItemID());
 
+            // Checks to see if a wine is selected, then double checks that the user wants to delete this wine
             if (wineToDelete != null)
             {
                 int choice = ui.ItemToDeleteAssurance(wineToDelete);
 
+                // Removes wine if the user says yes
                 if (choice == 1)
                         wineItems.Beverages.Remove(wineToDelete);
             }
@@ -100,8 +107,9 @@ namespace assignment1
             {
                 ui.DisplayItemFoundError();
             }
-
+            // Save changes made to the database then outputs a message saying the wine has been deleted
             wineItems.SaveChanges();
+            ui.DisplayItemDeleted();
         }
     }
 }

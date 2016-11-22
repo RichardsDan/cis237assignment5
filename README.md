@@ -3,7 +3,7 @@
 ## Due 11-22-2016
 
 ## Author
-
+Daniel Richards
 ## Description
 
 Either modify what I have in my Asignment1 key, which is included here, or bring in your files and use that to do the work.
@@ -81,4 +81,7 @@ Solution Requirements:
 
 ## Outside Resources Used
 
+cis237inclass5
+
 ## Known Problems, Issues, And/Or Errors in the Program
+None

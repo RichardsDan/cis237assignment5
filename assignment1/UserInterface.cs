@@ -88,6 +88,7 @@ namespace assignment1
             return Console.ReadLine();
         }
 
+        // Ensures user wants to delete the selected item from the list
         public int ItemToDeleteAssurance(Beverage wine)
         {
             //declare variable to hold the selection
@@ -116,15 +117,6 @@ namespace assignment1
             return Int32.Parse(selection);
         }
 
-        // Display menu asking if user is sure they want to delete the item
-        private void DeleteItemMenu(Beverage wine)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Are you sure you want to delete this item?");
-            Console.WriteLine(wine.id + " " + wine.name + " " + wine.pack + " " + wine.price.ToString("c"));
-            Console.WriteLine("1. Yes");
-            Console.WriteLine("2. No");
-        }
 
         //Get New Item Information From The User.
         public string[] GetNewItemInformation()
@@ -322,6 +314,16 @@ namespace assignment1
 
             //Return the reutrnValue
             return returnValue;
+        }
+
+        // Display menu asking if user is sure they want to delete the item
+        private void DeleteItemMenu(Beverage wine)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Are you sure you want to delete this item?");
+            Console.WriteLine(wine.id + " " + wine.name + " " + wine.pack + " " + wine.price.ToString("c"));
+            Console.WriteLine("1. Yes");
+            Console.WriteLine("2. No");
         }
     }
 }
