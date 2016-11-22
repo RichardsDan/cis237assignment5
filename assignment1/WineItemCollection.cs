@@ -34,43 +34,49 @@ namespace assignment1
             wineItems.Beverages.Add(newWine);
         }
 
-        ////Get The Print String Array For All Items
-        //public string[] GetPrintStringsForAllItems()
-        //{
-        //    //set a counter to be used
-        //    int counter = 0;
+       
 
-        //    //If the wineItemsLength is greater than 0, create the array of strings
-        //    if (wineItemsLength > 0)
-        //    {
-        //        //For each item in the collection
-        //        foreach (Beverage wineItem in wineItems.Beverages)
-        //        {
-        //            //if the current item is not null.
-        //            if (wineItem != null)
-        //            {
-        //                //Add the results of calling ToString on the item to the string array.
-        //                allItemStrings[counter] = wineItem.ToString();
-        //                counter++;
-        //            }
-        //        }
-        //    }
-        //    //Return the array of item strings
-        //    return allItemStrings;
-        //}
-
-        //Find an item by it's Id
-
-        public void UpdateItem()
+        public void UpdateItem(UserInterface ui)
         {
+            Beverage updateWine = ui.GetItemForUpdate(wineItems);
 
+            if (updateWine != null)
+            {
+                int choice = ui.DisplayUpdateMenuAndGetResponse();
+                
+                while (choice != 4)
+                {
+                    switch(choice)
+                    {
+                        // Change the description/name of the wine
+                        case 1:
+                            updateWine.name = ui.GetItemDescription();
+                            break;
+                        case 2:
+                            updateWine.pack = ui.GetItemPack();
+                            break;
+                        case 3:
+                            updateWine.price = ui.GetItemPrice();
+                            break;
+                    }
+                    choice = ui.DisplayUpdateMenuAndGetResponse();
+                }
+                wineItems.SaveChanges();
+            }
+            else
+            {
+                ui.DisplayItemFoundError();
+            }
+
+            ui.DisplayItemUpdated();
         }
 
-        public string FindById(string id, BeverageDRichardsEntities beverages)
+        //Find an item by it's Id
+        public string FindById(string id)
         {
             //Declare return string for the possible found item
             string returnString = null;
-            Beverage wineToFind = beverages.Beverages.Find(id);
+            Beverage wineToFind = wineItems.Beverages.Find(id);
 
             if (wineToFind != null)
                 returnString = wineToFind.id + " " + wineToFind.name + " " + wineToFind.pack + " " + wineToFind.price;
@@ -79,5 +85,23 @@ namespace assignment1
             return returnString;
         }
 
+        public void DeleteItem(UserInterface ui)
+        {
+            Beverage wineToDelete = wineItems.Beverages.Find(ui.GetItemID());
+
+            if (wineToDelete != null)
+            {
+                int choice = ui.ItemToDeleteAssurance(wineToDelete);
+
+                if (choice == 1)
+                        wineItems.Beverages.Remove(wineToDelete);
+            }
+            else
+            {
+                ui.DisplayItemFoundError();
+            }
+
+            wineItems.SaveChanges();
+        }
     }
 }

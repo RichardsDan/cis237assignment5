@@ -47,7 +47,7 @@ namespace assignment1
                     case 2:
                         //Search For An Item
                         string searchQuery = userInterface.GetSearchQuery();
-                        string itemInformation = wineItems.FindById(searchQuery, beverageDRichardsEntities);
+                        string itemInformation = wineItems.FindById(searchQuery);
                         if (itemInformation != null)
                         {
                             userInterface.DisplayItemFound(itemInformation);
@@ -60,7 +60,7 @@ namespace assignment1
                     case 3:
                         //Add A New Item To The List
                         string[] newItemInformation = userInterface.GetNewItemInformation();
-                        if (wineItems.FindById(newItemInformation[0], beverageDRichardsEntities) == null)
+                        if (wineItems.FindById(newItemInformation[0]) == null)
                         {
                             wineItems.AddNewItem(newItemInformation[0], newItemInformation[1], newItemInformation[2], decimal.Parse(newItemInformation[3]));
 
@@ -75,7 +75,11 @@ namespace assignment1
                         break;
                     case 4:
                         // Update an Item in the List
-
+                        wineItems.UpdateItem(userInterface);
+                        break;
+                    case 5:
+                        // Remove an Item from the List
+                        wineItems.DeleteItem(userInterface);
                         break;
                 }
 
